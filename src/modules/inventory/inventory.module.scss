@@ -1,0 +1,16 @@
+/* InventoryApp.module.scss */
+
+.inventoryContainer {
+  padding-top: 80px; /* leave space for navbar */
+  padding-left: 20px;
+  padding-right: 20px;
+  min-height: calc(100vh - 80px); /* full height minus navbar */
+  background-color: #fafafa; /* optional light background */
+}
+
+.inventoryTitle {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 1rem;
+}

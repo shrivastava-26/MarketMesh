@@ -1,0 +1,130 @@
+$form-bg: #ffffff;
+$primary-color: red; // subtle corporate blue
+$secondary-color: #e0f2ff; // light blue background accent
+$text-color: black; // dark text for readability
+$border-radius: 5px;
+$transition-time: 0.3s;
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding-top: 80px;
+  width: 100vw;
+  height: 90vh;
+  background: linear-gradient(135deg, #f0f4f8, #d9e2ec);
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(rgb(224, 36, 36), rgb(43, 81, 162));
+}
+
+.auth-form {
+  width: 25vw;
+  height: auto;
+  max-height: 60vh;
+  max-width: 400px;
+  background: $form-bg;
+  padding: 2.5rem 2.5rem;
+  border-radius: $border-radius;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.08);
+  display: flex;
+  gap: 10px;
+  flex-direction: column;
+  transition: all $transition-time ease;
+  animation: fadeIn $transition-time ease;
+
+  h2 {
+    text-align: center;
+    color: $primary-color;
+    font-weight: 700;
+    // margin-bottom: 1rem;
+    letter-spacing: 0.5px;
+    font-size: 1rem;
+  }
+
+  label {
+    font-weight: 500;
+    color: $text-color;
+    margin-bottom: 0.3rem;
+    font-size: 12px;
+  }
+
+  input {
+    padding: 0.5 rem 0.5 rem;
+    border: 1px solid #ccc;
+    border-radius: $border-radius;
+    font-size: 12px;
+    outline: none;
+    transition: all $transition-time ease;
+    height: 30px;
+
+    &:focus {
+      border-color: $primary-color;
+      box-shadow: 0 0 8px rgba(0, 119, 182, 0.3);
+    }
+  }
+
+  .toggle-text {
+    text-align: center;
+    color: $primary-color;
+    font-weight: 500;
+    font-size: 0.9rem;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: color $transition-time ease;
+    color: red($color: red);
+
+    &:hover {
+      color: darken($primary-color, 10%);
+      text-decoration: underline;
+    }
+  }
+
+  .btn-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 1rem;
+
+    button {
+      flex: 1;
+      border: none;
+      border-radius: $border-radius;
+      background: $primary-color;
+      color: #fff;
+      font-weight: 600;
+      cursor: pointer;
+      font-size: 1rem;
+      transition: all $transition-time ease;
+      height: 40px;
+
+      &:hover {
+        background: darken($primary-color, 7%);
+      }
+
+      &.reset {
+        background: #6c757d;
+
+        &:hover {
+          background: #495057;
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 768px) {
+  .auth-form {
+    width: 90vw;
+    padding: 2rem;
+  }
+}
