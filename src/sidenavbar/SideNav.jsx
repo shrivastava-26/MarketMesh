@@ -18,8 +18,8 @@ import {
   LayoutDashboard,
   Home as HomeIcon,
 } from "lucide-react";
-import styles from "./sideNav.module.scss";
-import { MeshContext } from "../store/MeshContext";
+import styles from "./sidenav.module.scss";
+import {MeshContext} from "../store/MeshContext"
 
 const TAB_CONFIG = {
   home: { label: "Home", icon: HomeIcon, actions: [] },
@@ -85,7 +85,6 @@ const SideNav = () => {
       return;
     }
   };
-
   return (
     <aside className={`${styles.sideNav} ${collapsed ? styles.sideNavCollapsed : ""}`} aria-hidden={false}>
       <button
