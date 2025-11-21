@@ -1,16 +1,93 @@
-/* CatalogApp.module.scss */
+/* catalog.module.scss */
 
+/* MAIN CONTAINER */
 .catalogContainer {
-  padding-top: 80px; /* leave space for navbar */
-  padding-left: 20px;
-  padding-right: 20px;
-  min-height: calc(100vh - 80px); /* full height minus navbar */
-  background-color: #f5f5f5; /* optional: light background */
+  margin-top: 10vh;           /* below top navbar */
+  padding: 1.5rem 2rem;
+  padding-left: 5rem;         /* space for left sidebar */
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.catalogHeader {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 0.5rem;
+
+  /* make header (title + chips) stick while scrolling */
+  position: sticky;
+  top: 5vh;                  /* same as margin-top so it sits under top nav */
+  z-index: 10;
+  background: #ffffff;        /* so it doesn’t overlap with content visually */
+  padding: 0.5rem 0;
 }
 
 .catalogTitle {
-  font-size: 2rem;
-  font-weight: bold;
-  color: #333;
-  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: #111827;
+  text-align: left;
+}
+
+/* CHIPS ROW */
+.chipRow {
+  position: fixed;
+  top: 15vh;                 /* height below your top navbar */
+  left: 50%;
+  transform: translateX(-50%);
+
+  display: flex;
+  gap: 0.6rem;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+
+  padding: 0.6rem 1rem;
+  background: #ffffff;
+  border-radius: 999px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  z-index: 999;
+}
+
+
+.chip {
+  border-radius: 999px;
+  border: 1px solid #e5e7eb;
+  padding: 0.25rem 0.9rem;
+  font-size: 0.85rem;
+  background: #ffffff;
+  cursor: pointer;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.1s ease;
+
+  &:hover {
+    background: #f3f4f6;
+    border-color: #d1d5db;
+  }
+}
+
+/* ACTIVE CHIP */
+.chipActive {
+  background: #2563eb;
+  border-color: #1d4ed8;
+  color: #ffffff;
+}
+
+/* PRODUCT GRID */
+.productList {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 1.25rem;
+}
+
+/* FOOTER STATE (LOADER / "NO MORE" TEXT) */
+.footerState {
+  margin: 1rem 0;
+  text-align: center;
+  color: #6b7280;
+  font-size: 0.9rem;
 }

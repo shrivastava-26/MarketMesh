@@ -1,59 +1,88 @@
 .navbar {
   position: fixed;
   top: 0;
-  left:0;
+  left: 0;
   width: 100%;
   height: 80px;
   background-color: #1f1f1f;
-  padding: 0 1rem;
+  padding: 0 2rem;
   color: #fff;
   display: flex;
   align-items: center;
-  justify-content: space-evenly;
+  justify-content: space-between;
   z-index: 1000;
+  box-sizing: border-box;
+}
 
-  .navbar-list {
-    list-style: none;
+/* Brand on left */
+.navbar-brand {
+  .brand-link {
+    text-decoration: none;
     display: flex;
-    gap: 10rem;
-    justify-content: space-be;
-    align-items: center;
-    cursor: pointer;
+    flex-direction: column;
+  }
 
-    .navbar-item {
-      a {
-        color: #fff;
-        text-decoration: none;
-        font-weight: 500;
-        padding: 0.5rem 0.75rem;
-        display: block;
-        transition: background 0.2s, color 0.2s;
+  .brand-title {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #00d1b2;
+  }
 
-        &:hover {
-          background-color: #333;
-          border-radius: 4px;
-        }
-      }
+  .brand-subtitle {
+    font-size: 0.8rem;
+    color: #ffffffaa;
+    margin-top: 2px;
+  }
+}
 
-      &.active a {
-        color: #ffd700;
-        font-weight: 700;
-      }
+/* Right side (links + icon) */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+}
+
+/* Nav list */
+.navbar-list {
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 2rem; // was 10rem – way too much
+  margin: 0;
+  padding: 0;
+}
+
+.navbar-item {
+  a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 0.5rem 0.75rem;
+    display: block;
+    transition: background 0.2s, color 0.2s;
+
+    &:hover {
+      background-color: #333;
+      border-radius: 4px;
     }
   }
 
-   .navbar-right {
-    display: flex;
-    align-items: center;
-
-    .user-icon {
-      width: 35px;
-      height: 35px;
-      border-radius: 50%;
-      background-color: #ccc;
-      cursor: pointer;
-      padding-left: 200px;
-    }
+  &.active a {
+    color: #ffd700;
+    font-weight: 700;
   }
+}
 
+/* User icon button */
+.user-icon-btn {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 0;
+
+  svg {
+    color: #fff;
+  }
 }

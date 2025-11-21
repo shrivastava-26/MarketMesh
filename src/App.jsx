@@ -1,97 +1,89 @@
+// src/App.jsx
 import React, { Suspense, lazy } from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   Navigate,
+  Outlet,
+  useLocation,
 } from "react-router-dom";
 import Navbar from "./topnavigation/Navbar";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { MeshProvider, MeshContext } from "./store/MeshContext";
-
+import { MeshContext,MeshProvider } from "./store/MeshContext";
+import "./App.css";                   
+import SideNav from "./sidenavbar/SideNav";
+import Cart from "./pages/cart/Cart";
+import Wishlist from "./pages/wishlist/WishList";
+import Profile from "./pages/user/Profile";
+import Orders from "./pages/user/Orders";
+import BecomeSeller from "./pages/user/BecomeSeller";
+import OrderDetail from "./pages/user/OrderDetails";
 const Home = lazy(() => import("./pages/landing/Home"));
-const Form = lazy(() => import("./shared/components/Form"));
+const AuthForm = lazy(() => import("./shared/components/Form"));
 const Catalog = lazy(() => import("./modules/catalog/CatalogApp"));
-const Inventory = lazy(() => import("./modules/inventory/InventoryApp"));
 const Dashboard = lazy(() => import("./modules/dashboard/DashboardApp"));
+const Inventory = lazy(() => import("./modules/inventory/InventoryApp"));
 
-// Protect any route for logged-in users only
-const ProtectedRoute = ({ children }) => {
+const PageLoader = () => <div style={{ padding: 20 }}>Loading…</div>;
+
+function ProtectedLayout() {
   const { user } = React.useContext(MeshContext);
-  return user ? children : <Navigate to="/auth" replace />;
-};
+  const location = useLocation();
 
-const AuthRedirect = ({ children }) => {
+  if (!user) return <Navigate to="/auth" replace />;
+
+  // show sidenav on everything EXCEPT home
+  const showSideNav = location.pathname !== "/";
+
+  return (
+    <div className={`appLayout ${showSideNav ? "withSideNav" : ""}`}>
+      {showSideNav && <SideNav />}
+
+      <main className="appContent">
+        <Outlet />
+      </main>
+    </div>
+  );
+}
+
+function AuthRedirect() {
   const { user } = React.useContext(MeshContext);
-  return user ? <Navigate to="/" replace /> : children;
-};
+  return user ? <Navigate to="/" replace /> : <Outlet />;
+}
 
-const AppRoutes = () => (
-  <Suspense fallback={<div>Loading...</div>}>
-    <Routes>
-      {/* Home page */}
-      <Route
-        path="/"
-        element={
-          <ProtectedRoute>
-            <Home />
-          </ProtectedRoute>
-        }
-      />
-
-      {/* Auth Form */}
-      <Route
-        path="/auth"
-        element={
-          <AuthRedirect>
-            <Form />
-          </AuthRedirect>
-        }
-      />
-
-      {/* Protected modules */}
-      <Route
-        path="/catalog"
-        element={
-          <ProtectedRoute>
-            <Catalog />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/inventory"
-        element={
-          <ProtectedRoute>
-            <Inventory />
-          </ProtectedRoute>
-        }
-      />
-      <Route
-        path="/dashboard"
-        element={
-          <ProtectedRoute>
-            <Dashboard />
-          </ProtectedRoute>
-        }
-      />
-
-      {/* Catch-all */}
-      <Route path="*" element={<Navigate to="/" replace />} />
-    </Routes>
-  </Suspense>
-);
-
-const App = () => {
+export default function App() {
   return (
     <MeshProvider>
       <Router>
         <Navbar />
-        <AppRoutes />
+
+        <Suspense fallback={<PageLoader />}>
+          <Routes>
+            <Route element={<AuthRedirect />}>
+              <Route path="/auth" element={<AuthForm />} />
+            </Route>
+
+            <Route element={<ProtectedLayout />}>
+              <Route index element={<Home />} />
+              <Route path="catalog" element={<Catalog />} />
+              <Route path="inventory" element={<Inventory />} />
+              <Route path="dashboard" element={<Dashboard />} />
+              <Route path="cart" element={<Cart/>}/>
+              <Route path="wishlist"element={<Wishlist/>}/>
+              <Route path="profile" element={<Profile/>}/>
+              <Route path="orders" element={<Orders/>}/>
+              <Route path="become-seller" element={<BecomeSeller/>}/>
+              <Route path="orders/:id" element={<OrderDetail/>}/>
+            </Route>
+
+            <Route path="*" element={<Navigate to="/" replace />} />
+          </Routes>
+        </Suspense>
+
         <ToastContainer position="top-right" autoClose={3000} />
       </Router>
     </MeshProvider>
   );
-};
-
-export default App;
+}

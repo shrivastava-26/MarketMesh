@@ -1,0 +1,199 @@
+/* sideNav.module.scss — replacement */
+
+/* Set this in your global CSS or header if your top navbar height differs:
+   :root { --topbar-height: 64px; }
+   Or override inline: .sideNav { top: 72px; } if needed.
+*/
+.sideNav {
+  position: fixed;
+  top: var(--topbar-height, 80px); /* distance from top so it doesn't go under header */
+  left: 0;
+  width: 150px;
+  height: calc(100vh - var(--topbar-height, 64px));
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  padding: 0.6rem 0.4rem;
+  gap: 0.5rem;
+  background: var(--side-bg, #ffffff);
+  border-right: 1px solid rgba(0,0,0,0.04);
+  z-index: 1200; /* above typical header z-index */
+  overflow: hidden;
+}
+
+/* collapsed */
+.sideNavCollapsed {
+  width: 64px;
+}
+
+/* hamburger */
+.hamburger {
+  background: transparent;
+  border: none;
+  margin: 0.25rem 0.4rem;
+  padding: 0.45rem;
+  cursor: pointer;
+  z-index: 1300;
+}
+
+/* header shown only in expanded */
+.sideNavHeader {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.6rem;
+  z-index: 1250;
+}
+.currentTabTitle {
+  font-size: 1rem;
+  margin: 0;
+}
+.tabIcon { opacity: 0.95; }
+
+/* Actions column (expanded) */
+.actionsSection {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.4rem;
+  box-sizing: border-box;
+}
+
+/* Action chip: anchor for badge (position relative) */
+.actionChip {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.45rem 0.75rem;
+  border-radius: 8px;
+  width: 100%;
+  box-sizing: border-box;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  text-decoration: none;
+  position: relative; /* IMPORTANT: containing block for ::after */
+  overflow: visible;
+}
+
+/* icon wrapper inside chip - we render badge via ::after on this -->
+   this targets only the icon wrapper so the badge sits after the icon (visual ::after) */
+.actionIconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  position: relative; /* another anchor if needed */
+}
+
+/* badge via ::after on .actionIconWrap, controlled by data-count attr */
+.actionIconWrap::after {
+  content: attr(data-count);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: #ff3b30;
+  color: #fff;
+  font-size: 11px;
+  line-height: 1;
+  position: absolute;
+  top: -8px;
+  right: -10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.12);
+  z-index: 1400;
+  transform: translateZ(0);
+}
+
+/* hide badge when data-count is '0' or empty */
+.actionIconWrap[data-count="0"]::after,
+.actionIconWrap:not([data-count])::after {
+  display: none;
+}
+
+/* label text */
+.actionLabel {
+  font-size: 0.95rem;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Collapsed icons column */
+.collapsedIcons {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.4rem;
+  align-items: center;
+  box-sizing: border-box;
+}
+
+/* collapsed icon button */
+.collapsedIconBtn {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  box-sizing: border-box;
+  overflow: visible;
+}
+
+/* collapsed icon wrapper with badge via ::after */
+.collapsedIconWrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.collapsedIconWrap::after {
+  content: attr(data-count);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 18px;
+  height: 18px;
+  border-radius: 999px;
+  background: #ff3b30;
+  color: #fff;
+  font-size: 11px;
+  line-height: 1;
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  z-index: 1400;
+}
+.collapsedIconWrap[data-count="0"]::after,
+.collapsedIconWrap:not([data-count])::after {
+  display: none;
+}
+
+/* hide expanded blocks when collapsed class present */
+.sideNavCollapsed .sideNavHeader,
+.sideNavCollapsed .actionsSection {
+  display: none !important;
+}
+
+/* show collapsed icons only when collapsed */
+.sideNavCollapsed .collapsedIcons { display: flex; }
+
+/* Extra safety */
+.sideNav, .sideNav * { box-sizing: border-box; }
+
+/* small screen adjustments */
+@media (max-width: 640px) {
+  .sideNav { width: 56px; }
+  .sideNavCollapsed { width: 56px; }
+  .collapsedIconBtn { width: 36px; height: 36px; }
+}

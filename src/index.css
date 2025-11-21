@@ -1,0 +1,23 @@
+
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  /* width: 100vw;   <-- REMOVE this, it causes weird overflow on some browsers */
+  overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+.marketmesh {
+  font-family: "Poppins", sans-serif;
+  color: #111;
+  margin-left: 100px;             
+  width: calc(100vw - 100px);      
+  min-height: 100vh;
+}
