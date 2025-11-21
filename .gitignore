@@ -1,47 +1,44 @@
 # Node dependencies
 node_modules/
+**/node_modules/
+
+# Build output
+dist/
+dist-ssr/
+build/
+.vite/
+.vercel/output/
+
+# Logs
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-package-lock.json.*
-yarn.lock.*
-pnpm-lock.yaml.*
+*.log
 
-# Build output
-dist/
-build/
-.out/
-.vercel/output/
-
-# Vercel local/project files
-.vercel/
-
-# Env files
+# Local env files
 .env
 .env.*
 !.env.example
 
-# Logs
-*.log
-logs/
-debug.log
-
-# OS junk
+# Editor / OS files
+.vscode/*
+!.vscode/extensions.json
+.idea/
+*.iml
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
 .DS_Store
 Thumbs.db
 
-# Editor settings
-.vscode/
-.idea/
-*.swp
-
-# Test & coverage
+# Coverage / test
 coverage/
-.nyc_output/
+*.lcov
+.jest/
 
-# Cache
-.cache/
-.tmp/
-.eslintcache
-stylelintcache
+# Optional: lock files (pick one package manager)
+# If you're using npm, keep package-lock.json and ignore others:
+pnpm-lock.yaml
+yarn.lock

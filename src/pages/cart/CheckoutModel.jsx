@@ -107,7 +107,6 @@ const CheckoutModel = ({
     };
 
     try {
-      // COD flow
       if (paymentMethod === "COD") {
         const localOrder = {
           id: `local_${Date.now()}`,
@@ -129,10 +128,8 @@ const CheckoutModel = ({
         return;
       }
 
-      // Online flow
       await loadRazorpayScript();
 
-      // Create server order + local order (server will create local order if orderPayload passed)
       const createRes = await fetch(`${API_BASE}/api/payments/create-order`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
